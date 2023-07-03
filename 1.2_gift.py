@@ -1,36 +1,36 @@
+
 """
 ID: renvanro1
 LANG: PYTHON3
 TASK: gift1
 """
 
-
 file = open('gift1.in','r')
-file = file.read().splitlines()
+file = [line.strip() for line in file.read().splitlines()]
 
-friends_group_name = {}
-start = int(file[0])+1
-for i in range(1,start):
-    friends_group_name[file[i]] = 0
+counter = int(file[0])+1
+friends_group = {}
+for i in range(1,counter):
+    friends_group[file[i]] = 0
 
-long = len(file)
-while start < long and (long - start) > 2:
-    distributor = file[start]
-    s = file[start+1].split()
+while counter < len(file):
+    distributor = file[counter]
+    counter += 1
+    s = file[counter].split()
     sum = int(s[0])
-    friend_to_ditribute = int(s[1])
-    if friend_to_ditribute == 0:
-        friends_group_name[distributor]= friends_group_name[distributor] + sum
-        start += 2
-        continue
+    friend_to_distribute = int(s[1])
+    counter += 1
+    
+    if friend_to_distribute == 0:
+        friends_group[distributor] = friends_group[distributor] + sum
     else:
-        sum_per_persona = sum//friend_to_ditribute
-        for i in range(start+2,start+2+friend_to_ditribute):
-            friends_group_name[file[i]] = friends_group_name[file[i]] + sum_per_persona
-            friends_group_name[distributor] = friends_group_name[distributor] - sum_per_persona
-        start = i + 1
-
+        sum_per_persona = sum//friend_to_distribute
+        friends_group[distributor] = friends_group[distributor] + (sum%friend_to_distribute) - sum
+        for i in range(counter,counter+friend_to_distribute):
+            friends_group[file[counter]] = friends_group[file[counter]] + sum_per_persona
+            counter += 1
+        
 fin = open('gift1.out','w')
-for i in friends_group_name:
-    fin.write(i+' '+str(friends_group_name[i])+'\n')
+for i in friends_group:
+    fin.write(i+' '+str(friends_group[i])+'\n')
 fin.close()
