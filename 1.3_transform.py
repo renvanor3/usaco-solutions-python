@@ -22,7 +22,7 @@ class Transformation:
         t1 = self.t1(before)
         t2 = self.t1(t1)
         t3 = self.t1(t2)
-        t4 = self.t4(t3)
+        t4 = self.t4(t2)
         t4_1 = self.t1(t4)
         t4_2 = self.t1(t4_1)
         t4_3 = self.t1(t4_2)
@@ -34,7 +34,7 @@ class Transformation:
         elif t3 == after:
             self.n == 3
         elif t4 == after:
-            self.n = 5
+            self.n = 4
         elif t4_1 == after or t4_2 == after or t4_3 == after:
             self.n = 5
         elif before == after:
@@ -55,13 +55,16 @@ class Transformation:
             unit += before[ref+1:][::-1]
             unit.append(before[ref])
             unit += before[:ref][::-1]
+
         return unit
     def __str__(self):
         return str(self.n)
 
 objet = Transformation(before,after,n)    
 
-print(objet.n)
 fin = open('transform.out','w')
 fin.write(str(objet.n)+'\n')
 fin.close()
+
+
+
